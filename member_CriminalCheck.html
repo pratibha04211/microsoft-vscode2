@@ -1,0 +1,177 @@
+<template>
+<lightning-card>
+<div>
+    <lightning-button class="slds-m-left_small slds-show_medium slds-float_left" variant="brand" label="Back To My Profile" title="Back To My Profile" onclick={backToMyProfile}></lightning-button>
+    <lightning-button-icon class="slds-m-left_small slds-hide_medium slds-float_left slds-m-right_small" icon-name="utility:back"   variant="brand" alternative-text="Back To My Profile" title="Back To My Profile" onclick={backToMyProfile}></lightning-button-icon>
+    <div class="slds-float_right">
+    <lightning-button class="slds-m-left_small slds-show_medium  slds-m-right_small" variant="brand" label="Submit For Review" onclick={AddNewEducationUi} ></lightning-button>
+    <lightning-button-icon class="slds-m-left_small slds-hide_medium  slds-m-right_small " icon-name="utility:add" variant="brand" alternative-text="Submit For Review" title="Submit For Review" onclick={AddNewEducationUi}></lightning-button-icon>
+    <!-- <lightning-button-icon class="slds-m-right_small " icon-name="utility:refresh"   variant="brand" alternative-text="Refresh" title="Refresh" onclick={getEducationData}></lightning-button-icon> -->
+    </div>  
+</div>
+
+
+<div class="slds-align_absolute-center slds-p-top_large"><span class="slds-align_absolute-center pageHeader slds-p-around_small">Criminal Record Check</span> </div> 
+
+<!--******************Display Profile Information From Member Profile***************************-->
+
+<lightning-accordion  active-section-name="Personal Information" style="width: 100%;">
+    
+<lightning-accordion-section class="hardCodedText"  name="Personal Information" label="Personal Information">
+<template if:true={allProfileData} for:each={allProfileData} for:item="profileData" for:index="index">
+<div key={profileData.Id} class="slds-col slds-grid slds-wrap slds-small-size_1-of-1 slds-large-size_1-of-1 slds-medium-size_1-of-1 slds-size_1-of-1 slds-p-top_small" >
+    <div key={profileData.Id} class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-4 slds-large-size_1-of-4  slds-size_1-of-1 slds-p-around_small slds-p-top_none" style="align-content: flex-end; word-break: break-word;">
+        <label class="formLabels"><b>Professional Title</b></label>
+        <p>
+            <lightning-formatted-text class="textInField" value={profileData.professionalTitle}></lightning-formatted-text>
+        </p>
+    </div>
+
+    <div key={profileData.Id} class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-4 slds-large-size_1-of-4 slds-size_1-of-1 slds-p-around_small slds-p-top_none" style="align-content: flex-end; word-break: break-word;">
+        <label class="formLabels"><b>Legal First Name</b></label>
+        <p>
+            <lightning-formatted-text class="textInField" value={profileData.firstName}></lightning-formatted-text>
+        </p>
+    </div>
+
+    <div key={profileData.Id} class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-4 slds-large-size_1-of-4  slds-size_1-of-1 slds-p-around_small slds-p-top_none" style="align-content: flex-end; word-break: break-word;">
+        <label class="formLabels"><b>Legal Middle Name</b></label>
+        <p>
+            <lightning-formatted-text class="textInField" value={profileData.middleName}></lightning-formatted-text>
+        </p>
+    </div>
+    <div key={profileData.Id} class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-4 slds-large-size_1-of-4  slds-size_1-of-1 slds-p-around_small slds-p-top_none" style="align-content: flex-end; word-break: break-word;">
+        <label class="formLabels"><b>Legal Last Name</b> </label>
+        <p>
+            <lightning-formatted-text class="textInField" value={profileData.lastName}></lightning-formatted-text>
+        </p>
+    </div>
+
+    <div  key={profileData.Id} class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-4 slds-large-size_1-of-4  slds-size_1-of-1 slds-p-around_small slds-p-top_none" style="align-content: flex-end; word-break: break-word;">
+        <label class="formLabels"><b>Suffix</b></label>
+        <p>
+        <lightning-formatted-text class="textInField" value={profileData.suffix}></lightning-formatted-text>
+        </p>
+    </div>
+    <div key={profileData.Id} class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-4 slds-large-size_1-of-4  slds-size_1-of-1 slds-p-around_small slds-p-top_none" style="align-content: flex-end; word-break: break-word;">
+        <label class="formLabels"><b>Date Of Birth</b> </label>
+        <p>
+        <lightning-formatted-text class="textInField" value={profileData.dob}></lightning-formatted-text>
+        </p>
+    </div>
+
+    <div key={profileData.Id} class="slds-col slds-small-size_1-of-1 slds-medium-size_1-of-4 slds-large-size_1-of-4  slds-size_1-of-1 slds-p-around_small slds-p-top_none" style="align-content: flex-end; word-break: break-word;">
+    <label class="formLabels"><b>Social Security Number</b> </label>
+    <p>
+        <lightning-formatted-text class="textInField" value={profileData.SocialSecurityNumber}></lightning-formatted-text>
+    </p>
+    </div>
+</div> 
+</template>
+</lightning-accordion-section> 
+
+
+<!--******************Display Aliases Information From Member Profile***************************-->
+<template if:false={hideAliases} >
+<lightning-accordion-section class="hardCodedText" name="Aliases Information" label="Aliases Information">
+<template if:true={allAliases} >
+<table class="tablecls">
+<thead>
+    <th>Prefix</th>
+    <th>First Name</th>
+    <th class="slds-show_medium">Middle Name</th>
+    <th >Last Name</th>
+    <th class="slds-show_medium">Suffix</th>
+    
+</thead>
+<tbody>
+    <template for:each={allAliases} for:item="Alias" for:index="index">
+        <tr key={Alias.recId} class="slds-p-around_small">
+            <td><span if:true={Alias.Prefix}>{Alias.Prefix}</span><span if:false={Alias.Prefix}>{nodata}</span></td>
+            <td>{Alias.FirstName}</td>
+            <td class="slds-show_medium"><span if:true={Alias.MiddleName}>{Alias.MiddleName}</span><span if:false={Alias.MiddleName}>{nodata}</span></td>
+            <td >{Alias.LastName}</td>
+            <td class="slds-show_medium"><span if:true={Alias.Suffix}>{Alias.Suffix}</span><span if:false={Alias.Suffix}>{nodata}</span></td> 
+        </tr>
+    </template>
+</tbody>
+</table>
+</template>
+</lightning-accordion-section> 
+</template>
+<lightning-accordion-section class="hardCodedText" name="Home Addresses for Last 7 Years" label="Home Addresses for Last 7 Years">
+    <!-- Add New Home Address -->
+    <div class="slds-col slds-size_1-of-1" style="align-self: center">
+        <!-- <template for:each={count} for:item="item" for:index=idx> -->
+            <div key={item} class="slds-grid slds-wrap right box2 slds-m-top_x-small slds-m-bottom_x-small">
+                
+                <div class="slds-size_1-of-1 slds-p-around_small">
+                    <lightning-icon icon-name="utility:identity" alternative-text="Alias" variant="success"
+                    title="Alias Name" size="small"></lightning-icon>
+                    <span class="slds-p-around_small" style="font-weight: bold;">Home Address</span>
+
+                    <lightning-button-icon  icon-name="utility:close" variant="brand" style="align-self: self-end;float:right"
+                    data-idnx={idx} onclick={removeAlias} alternative-text="Delete Home Address" title="Delete Home Address" ></lightning-button-icon>
+                </div>
+
+                <div class="slds-col slds-small-size_1-of-1 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-size_1-of-1 slds-p-around_small" >
+                    <lightning-input class="DOB" type="date" date-style="short"  name="MoveInDate" value={dob} onchange={dobChange} label="Moved In Date" placeholder="Enter Moved In Date" required></lightning-input>
+                </div>
+                <div class="slds-col slds-small-size_1-of-1 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-size_1-of-1 slds-p-around_small" >
+                    <lightning-input class="DOB" type="date" date-style="short"  name="MovedOutdate" value={dob} onchange={dobChange} label="Moved Out Date" placeholder="Enter Moved Out Date" required></lightning-input>
+                </div>
+
+                <div class="slds-col slds-small-size_1-of-1 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-size_1-of-1 slds-p-around_small" >
+                <lightning-input placeholder="Enter Address Street" id={idx} data-idnx={idx} label="Street" name="tempAddressStreet"
+                        data-name='addressStreet' onchange={aliasChange} required message-when-value-missing="">
+                </lightning-input>
+                </div>
+
+                <div class="slds-col slds-small-size_1-of-1 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-size_1-of-1 slds-p-around_small" >
+                    <lightning-input type="checkbox"  checked={middleNameChbx} label="Current Address?" name="currentAddress" onchange={handlemiddleNameRequiredChange}></lightning-input>
+                </div>
+
+                <div class="slds-col slds-small-size_1-of-1 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-size_1-of-1 slds-p-around_small" >
+                    <lightning-input  placeholder="Enter Address City" id={idx} data-idnx={idx} label="City" name="tempAddressCity"
+                            data-name='addressCity' onchange={aliasChange} required message-when-value-missing="">
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-small-size_1-of-1 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-size_1-of-1 slds-p-around_small" >
+                    <lightning-input  placeholder="Enter Address Jurisdiction" id={idx} data-idnx={idx} label="State/Province" name="tempAddressJurisdiction"
+                            data-name='addressJurisdiction' onchange={aliasChange} required message-when-value-missing="">
+                    </lightning-input>
+                </div>
+
+                <div class="slds-col slds-small-size_1-of-1 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-size_1-of-1 slds-p-around_small" >
+                    <lightning-input type="number" name="addressPostalCode" label="Postal Code" value={currentPostalCode} onchange={currentPostalCodeChange} placeholder="Enter Address Postal Code" required></lightning-input>
+                </div>
+                <div class="slds-col slds-small-size_1-of-1 slds-large-size_1-of-2 slds-medium-size_1-of-2 slds-size_1-of-1 slds-p-around_small">
+                    <lightning-input name="AddressCountry" label="Country" value={currentCountry} onchange={currentCountryChange} placeholder="Enter Address Country" required></lightning-input>
+                    
+                </div>
+                <div class="slds-col slds-small-size_1-of-1 slds-large-size_1-of-1 slds-medium-size_1-of-1 slds-size_1-of-1 slds-p-around_small">
+                    <lightning-textarea  name="AdditionalComments" label="Additional Comments" value={profileSummery} onchange={profileSummeryChange} placeholder="Enter Additional Comments" ></lightning-textarea>
+                </div>
+                  
+            </div>
+        <!-- </template> -->
+    </div>
+
+    <div class="slds-col slds-size_1-of-1 slds-p-around_small" style="align-self: center">
+        <div >
+            <div class=" slds-p-around_xx-small iconContainer redColor" onclick={addAliasRow} style="width: fit-content;">
+                <svg focusable="false" data-key="add" aria-hidden="true" viewBox="0 0 52 52"
+                    class="slds-button__icon slds-button__icon_large">
+                    <path
+                        d="M30 29h16.5c.8 0 1.5-.7 1.5-1.5v-3c0-.8-.7-1.5-1.5-1.5H30c-.6 0-1-.4-1-1V5.5c0-.8-.7-1.5-1.5-1.5h-3c-.8 0-1.5.7-1.5 1.5V22c0 .6-.4 1-1 1H5.5c-.8 0-1.5.7-1.5 1.5v3c0 .8.7 1.5 1.5 1.5H22c.6 0 1 .4 1 1v16.5c0 .8.7 1.5 1.5 1.5h3c.8 0 1.5-.7 1.5-1.5V30c0-.6.4-1 1-1z">
+                    </path>
+                </svg>
+                <span class="slds-p-around_x-small" style="font-size: medium;font-weight: normal;vertical-align: middle;">Add Home Address</span>
+            </div>
+        </div>
+    </div>
+</lightning-accordion-section>
+</lightning-accordion>
+</lightning-card>
+</template>
