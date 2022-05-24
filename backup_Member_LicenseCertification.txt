@@ -1,0 +1,533 @@
+<template>
+    <template if:true={loader}>
+        <lightning-spinner alternative-text="Loading"></lightning-spinner>
+    </template>
+    <lightning-card>
+    
+        <span class="slds-align_absolute-center pageHeader slds-p-around_small headerclass">License/Certification Details</span>  
+ 
+        <template if:true={error}><span class="slds-align_absolute-center errorMessage" style="color: red; font-weight: normal;">{error}</span></template>
+    
+        <lightning-accordion active-section-name="License/Certification Information" style="width: 100%;">
+        
+        <lightning-accordion-section class="hardCodedText" name="License/Certification Information" label="License/Certification Information">
+            <template if:true={fieldHelpText}>
+            <div class="slds-grid slds-wrap">
+            <div
+            
+                class="formLabels slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-around_xx-small ">
+                <!-- <label><span style="color: red;">*</span>License/Certification Unique ID</label> -->
+                <lightning-input label="License/Certification Unique ID" variant="label-stack" class="LicenseCertificationUniqueID" name="LicenseCertificationUniqueID" type="text" field-level-help={fieldHelpText.License_Certification_Unique_ID}
+                    value={licenseCertificationUniqueID} required onchange={onLicenseCertificationUniqueIDChange} placeholder="Enter License Certification Unique ID"></lightning-input>
+            </div>
+            <div
+                class="formLabels slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-around_xx-small">
+                <!-- <label><span style="color: red;">*</span>License/Certification Name</label> -->
+                <lightning-input label="License/Certification Name" variant="label-stack" name="LicenseCertificationName" type="text" field-level-help={fieldHelpText.License_Certification_Name}
+                    value={licenseCertificationName} required onchange={onLicenseCertificationNameChange} placeholder="Enter License Certification Name"></lightning-input>
+            </div>
+            <div
+            class="formLabels slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-around_xx-small ">
+            <!-- <label><span style="color: red;">*</span>License/Certification Issuer</label> -->
+            <lightning-input label="License/Certification Issuer" variant="label-stack" name="LicenseCertificationIssuer" type="text" field-level-help={fieldHelpText.License_Certification_Issuer}
+                value={licenseCertificationIssuer} required onchange={onLicenseCertificationIssuerChange} placeholder="Enter License Certification Issuer"></lightning-input>
+            </div>
+            <div
+            class="formLabels slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-around_xx-small ">
+            <!-- <label><span style="color: red;">*</span>License/Certification Issued To Name</label> -->
+            <lightning-input label="License/Certification Issued To Name" variant="label-stack" name="LicenseCertificationIssuedToName" type="text" field-level-help={fieldHelpText.License_Certification_Issued_To_Name}
+                value={licenseCertificationIssuedToName} required onchange={onLicenseCertificationIssuedToNameChange} placeholder="Enter License Certification Issued To Name"></lightning-input>
+            </div>
+            <div
+                class="formLabels slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-around_xx-small">
+                <!-- <label><span style="color: red;">*</span>Date Issued</label> -->
+                <lightning-input label="Date Issued" variant="label-stack" name="DateIssued" type="date" field-level-help={fieldHelpText.Date_Issued}
+                    value={dateIssued} required onchange={onDateIssuedChange} max={todayDate} date-style="short"  placeholder="Enter Issued Date"></lightning-input>
+            </div>
+            <div
+                class="formLabels slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-around_xx-small">
+                <!-- <label>Expiration Date</label> -->
+                <lightning-input label="Expiration Date" variant="label-stack" name="ExpirationDate" type="date" field-level-help={fieldHelpText.Expiration_Date}
+                    value={expirationDate} onchange={onExpirationDateChange} min={dateIssued} date-style="short" placeholder="Enter Expiration Date"></lightning-input>
+            </div>
+            <div
+            class="formLabels slds-size_1-of-1 slds-medium-size_1-of-2 slds-large-size_1-of-2 slds-p-around_xx-small">
+            <!-- <label>Renewal Date</label> -->
+            <lightning-input label="Renewal Date" variant="label-stack" name="RenewalDate" type="date" field-level-help={fieldHelpText.Renewal_Date}
+                value={renewalDate} onchange={onRenewalDateChange} min={dateIssued} date-style="short" placeholder="Enter Renewal Date"></lightning-input>
+            </div>
+        </div>
+    </template>
+    </lightning-accordion-section>
+    <lightning-accordion-section class="hardCodedText" name="Upload Documents" label="Upload Documents">
+        <!-- <div class=" slds-size_1-of-1 slds-m-around_small formLabels">(NOTE: Please Save Your License Certification Details To Enable Documents Upload)</div> -->
+        <div class="slds-size_1-of-1 slds-align_absolute-center slds-p-around_small">
+        
+            <span style="align-self: start;">NOTE:&nbsp;&nbsp;</span>
+            <ul>
+                <li>Please Save Your License Certification Details To Enable Documents Upload</li>
+                <li>Please Upload Files Upto Size 3MB</li>
+            </ul>
+        </div>  
+            <div class="slds-grid slds-wrap slds-size_1-of-1  slds-p-around_medium" >
+                <c-member_-upload_-supporting_-document recid={recId} 
+                isdisable={uploadDocumentDisabled} 
+                 class="slds-col slds-size_1-of-1 slds-p-around_medium  "
+                    acceptedformats={digitalCopyCertificateAcceptedFormats} 
+                    ismultiplesupported="false"
+                     documentname="Digital Copy Of License Certification" 
+                     doctype={CertificationCopy}
+                      onfilesuploaded={fileuploaded}>
+                </c-member_-upload_-supporting_-document>  
+                
+            <div class="slds-grid slds-wrap slds-size_1-of-1 slds-align_absolute-center"> 
+                <template if:true={showCertificationDocs}>
+<template for:each={digiCopyOfCertification} for:item="pp" for:index="index">
+                    <div key={pp.name} class="slds-size_3-of-6 slds-align_absolute-center">
+                        <lightning-icon icon-name="utility:success" alternative-text="" 
+                        variant="success"
+                        title="" size="x-small" style="vertical-align: top;">
+                        </lightning-icon>&nbsp;{pp.name}
+                    </div>
+                    <div key={pp.name}  class="slds-size_2-of-6">
+                        <lightning-button-icon class="slds-m-around_small" variant="bare" 
+                        icon-name="utility:preview" 
+                            size="large" onclick={previewUploadedImg} data-index={pp.ContentDocumentId} 
+                            data-cv={pp.CententVersionId}></lightning-button-icon>
+                        
+                        <lightning-button-icon class="slds-m-around_small" variant="bare" icon-name="utility:close" 
+                            size="large" onclick={removeUploadedImg} data-key={pp.ContentDocumentId} data-doctype={pp.doctype}>
+                        </lightning-button-icon>
+                    </div>
+                    </template>
+                </template>
+            </div>
+            </div> 
+    </lightning-accordion-section>
+    </lightning-accordion>
+
+            <div class="slds-grid slds-wrap">
+            <div class=" slds-size_1-of-1 slds-p-vertical_x-small slds-p-around_x-small slds-align_absolute-center">
+                <div class="slds-float_left slds-p-left_xx-small">
+                    <lightning-button variant="brand" label="Save" onclick={save} class="slds-m-left_x-small darkButton">
+                    </lightning-button>
+                </div>
+                <div class="slds-float_left slds-p-left_xx-small">
+                    <lightning-button variant="nutral" label="Cancel" onclick={cancel} class="slds-m-left_x-small">
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>
+
+=============js file
+import { LightningElement, track,api, wire } from 'lwc';
+// import Valid8MemberCSS from '@salesforce/resourceUrl/Valid8MemberCSS';
+// import { loadStyle } from 'lightning/platformResourceLoader';
+import { NavigationMixin } from 'lightning/navigation';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { updateRecord } from 'lightning/uiRecordApi';
+import { deleteRecord } from 'lightning/uiRecordApi';
+
+import saveCertificationDetails from '@salesforce/apex/Member_JobPortal.saveCertificationDetails';
+import getAllDocuments from '@salesforce/apex/Member_JobPortal.getAllDocuments';
+import getLicenseCertificationDetailFieldsHelpText from '@salesforce/apex/Member_HelpText.getLicenseCertificationDetailFieldsHelpText';
+
+import Status_FIELD from '@salesforce/schema/License_Certification__c.Status__c';
+import ID_FIELD from '@salesforce/schema/License_Certification__c.Id';
+import Timestamp_FIELD from '@salesforce/schema/License_Certification__c.Submitted_for_review_on__c';
+import AdminReviewComment_FIELD from '@salesforce/schema/License_Certification__c.Admin_Review_Comment__c';
+
+const DigitalCopyOfLicenceCertification='Digital Copy Of License Certification';
+
+export default class Member_LicenseCertification extends NavigationMixin (LightningElement) {
+
+error=null;
+@track recId=null;
+@track memberName;
+@track licenseCertificationUniqueID=null;
+@track licenseCertificationName=null;
+@track licenseCertificationIssuer=null;
+@track licenseCertificationIssuedToName=null;
+@track dateIssued=null;
+@track expirationDate=null;
+@track renewalDate=null;
+//@track status=null;
+
+@api editdatarec=null;
+@api orignalCertificationData=null;
+
+@api CertificationCopy=DigitalCopyOfLicenceCertification;
+showCertificationDocs=false;
+@track digiCopyOfCertification;
+// @track today;
+@track loader = false;
+@track fieldHelpText = null;
+
+connectedCallback() {
+    this.memberName = this.getUrlParamValue(window.location.href, 'MemberName');
+    this.memberId = this.getUrlParamValue(window.location.href, 'memberId');
+
+    // Promise.all([
+    //     loadStyle( this, Valid8MemberCSS)
+    
+    //     ]).then(() => {
+    //         console.log( 'Files loaded' );
+    //     })
+    //     .catch(error => {
+    //         console.log(JSON.stringify(error));
+    // });
+    console.log('this.this.editdatarec'+this.editdatarec);
+    if(this.editdatarec!=null){
+        this.recId = (this.editdatarec.recId!=undefined?this.editdatarec.recId:'')
+        this.orignalCertificationData=this.editdatarec;
+        this.assignCertificationData(this.editdatarec);
+    }
+    
+    if(this.recId !=null){
+        console.log('Get All Documents Of Certification');
+        this.getAllDocumentsOfCertification();
+    }
+}
+
+  //To set focus to first field
+  autofocus=true;
+  renderedCallback() {        
+      if (this.autofocus){
+          this.autofocusToFirstField(); 
+      }           
+  }
+
+  async autofocusToFirstField() {
+      console.log('autofocusToFirstField-->');  
+      let inputBox ;
+      await (inputBox =  this.template.querySelector('.LicenseCertificationUniqueID')); 
+      if(inputBox!=null && this.autofocus){
+          console.log('inside if-->'+inputBox);           
+          inputBox.focus();
+      }
+  }
+//Get Member ID and Member Name from URL
+getUrlParamValue(url, key) {
+    return new URL(url).searchParams.get(key);
+}
+
+ //field level help Text    
+ @wire(getLicenseCertificationDetailFieldsHelpText)
+ wireMemberhelptext({error,data}) {
+ if (error) {	   
+     console.log('wireMemberhelptext error-->'+JSON.stringify(error));
+ } else if (data) {		
+         this.fieldHelpText = data;
+         console.log('wireMemberhelptext data-->'+JSON.stringify(data));		
+     }
+ }
+/****************Handle field value changes****************************/
+onLicenseCertificationUniqueIDChange(event){
+    this.autofocus = false;
+    this.licenseCertificationUniqueID= event.detail.value;
+}
+
+onLicenseCertificationNameChange(event){
+    this.autofocus = false;
+    this.licenseCertificationName= event.detail.value;
+}
+
+onLicenseCertificationIssuerChange(event){
+    this.autofocus = false;
+    this.licenseCertificationIssuer= event.detail.value;
+}
+
+onLicenseCertificationIssuedToNameChange(event){
+    this.autofocus = false;
+    this.licenseCertificationIssuedToName= event.detail.value;
+}
+
+onDateIssuedChange(event){
+    this.autofocus = false;
+    this.dateIssued= event.detail.value;
+    // const todayDate=new Date();
+    // const IssueDate=new Date(event.target.value);
+    // if(todayDate>IssueDate){
+        
+    //     this.dateIssued=event.target.value;
+    //     this.error=null;
+    // }
+    // else{
+    //     event.target.value=null;
+    //     this.dateIssued=null;
+    //     this.error = 'Please Enter Issued Date Before Today';
+    // }
+    //console.log('issuedDate-->'+this.issuedDate);
+}
+
+
+onExpirationDateChange(event){
+    this.autofocus = false;
+    this.expirationDate= event.detail.value;
+}
+
+onRenewalDateChange(event){
+    this.autofocus = false;
+    this.renewalDate= event.detail.value;
+}
+
+/****************Handle field value changes Ends****************************/
+
+/*************Handle null values on edit*****************/
+assignCertificationData(CertificationData){
+    console.log(' this.CertificationData'+ JSON.stringify(CertificationData));
+    this.memberName=(CertificationData.MemberName!=undefined?CertificationData.MemberName:'null');
+    this.licenseCertificationUniqueID = (CertificationData.LicenseCertificationUniqueID!=undefined?CertificationData.LicenseCertificationUniqueID:'');
+    this.licenseCertificationName = (CertificationData.LicenseCertificationName!=undefined?CertificationData.LicenseCertificationName:'');
+    this.licenseCertificationIssuer =( CertificationData.LicenseCertificationIssuer!=undefined?CertificationData.LicenseCertificationIssuer:'');
+    this.licenseCertificationIssuedToName = ( CertificationData.LicenseCertificationIssuedToName!=undefined?CertificationData.LicenseCertificationIssuedToName:'');
+    this.dateIssued = ( CertificationData.DateIssued!=undefined?CertificationData.DateIssued:null);
+    this.expirationDate = ( CertificationData.ExpirationDate!=undefined?CertificationData.ExpirationDate:null);
+    this.renewalDate = ( CertificationData.RenewalDate!=undefined?CertificationData.RenewalDate:'');
+   // this.status =( CertificationData.Status!=undefined?CertificationData.Status:'');
+    console.log('assignCertificationData-->'+CertificationData);
+}
+
+//Today's Date
+get todayDate(){
+    //get today's date
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    return today;
+}
+
+/***************Save Certification Details*****************/
+save(event){
+this.loader = true;
+console.log('save called');
+const isInputsCorrect = [...this.template.querySelectorAll('lightning-input')]
+.reduce((validSoFar, inputField) => {
+    this.loader = false;
+inputField.reportValidity();
+return validSoFar && inputField.checkValidity();
+}, true);
+
+if (!isInputsCorrect) {
+
+    this.error = 'Please Fill Required Information.';
+    return null;
+    this.loader = false;
+}
+console.log('calling save');
+
+let recordToSave={
+    'recId':this.recId,
+    'MemberName':this.memberName,
+    'LicenseCertificationUniqueID':this.licenseCertificationUniqueID,
+    'LicenseCertificationName':this.licenseCertificationName,
+    'LicenseCertificationIssuer':this.licenseCertificationIssuer,
+    'LicenseCertificationIssuedToName':this.licenseCertificationIssuedToName,
+    'DateIssued':this.dateIssued,
+    'ExpirationDate':this.expirationDate,
+    'RenewalDate':this.renewalDate,
+    //'Status':this.status,
+};
+console.log('recordToSave-->'+JSON.stringify(recordToSave));
+this.error=null;
+
+saveCertificationDetails({recordToSave:recordToSave})
+.then(data => {
+    if (data) {
+        console.log('saveCertificationDetails data=>' + JSON.stringify(data));
+        this.recId=data;
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Success!',
+                message: 'Licenses/Certification Details Saved Successfully.',
+                variant: 'success',
+            }),
+        ); 
+    }
+    this.loader = false;
+})
+.catch(error => {
+    this.loader = false;
+    console.log('error==' + error);
+    console.log('error=>' + JSON.stringify(error));
+
+    this.dispatchEvent(
+        new ShowToastEvent({
+            title: 'Error While Saving Licenses/Certification Details!',
+            message: error.body.message,
+            variant: 'error'
+        })
+    );
+});
+
+}
+
+/***************Cancel Certification Details***************/
+cancel(){
+    // window.location.assign(window.location.href); 
+    const cancelOperation = new CustomEvent('canceloperation', {
+     detail: {  
+         value : 'Cancel',               
+     }
+ });
+ this.dispatchEvent(cancelOperation);
+}
+
+/************* Document Upload Handle *****************/
+
+get uploadDocumentDisabled() {
+    
+if(this.recId != null && this.recId != ''){                       
+    return false;
+}
+else
+    return true; 
+}
+
+
+
+get digitalCopyCertificateAcceptedFormats() {
+return ['.pdf','.doc','.jpeg', '.png','.jpg','.tiff'];
+//return ['.jpeg', '.png','.jpg','.tiff','.psd','.pdf'];
+}
+
+async getAllDocumentsOfCertification(){
+await getAllDocuments({recordId:this.recId})
+    .then(data => {
+        if (data) {
+                this.digiCopyOfCertification=[];
+                                    
+            console.log('getAllDocuments data=>' + JSON.stringify(data));
+            let uploadedFiles =data;
+            for(let i = 0; i < uploadedFiles.length; i++) {
+                
+                if(uploadedFiles[i].Document_Type_fileupload__c===DigitalCopyOfLicenceCertification){    
+                    console.log('in 1 if getAllDocuments data=>' );     
+                    this.showCertificationDocs=true;
+                    let digiCopyOfCertification={};
+                    digiCopyOfCertification.name=uploadedFiles[i].Title+'.'+uploadedFiles[i].FileExtension;
+                    digiCopyOfCertification.ContentDocumentId=uploadedFiles[i].ContentDocumentId;
+                    digiCopyOfCertification.CententVersionId=uploadedFiles[i].Id;
+                    digiCopyOfCertification.doctype=uploadedFiles[i].Document_Type_fileupload__c;
+                    this.digiCopyOfCertification.push(digiCopyOfCertification);
+                }
+                console.log('this.showCertificationDocs data=>' + JSON.stringify(this.showCertificationDocs));
+                //this.AllUploadedImageFiles.push({value:uploadedFiles[i].Title+'.'+uploadedFiles[i].FileExtension, key:uploadedFiles[i].ContentDocumentId,CVId:uploadedFiles[i].Id});				
+            }          
+        }
+    })
+    .catch(error => {
+        console.log('error==' + error);
+        console.log('error=>' + JSON.stringify(error));
+
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Error While Getting All Documents For Licenses/Certification!',
+                message: error.body.message,
+                variant: 'error'
+            })
+        );
+    });
+}
+
+previewUploadedImg(event){
+//this.showSpinner=true;	
+let key = event.target.getAttribute('data-index');
+let cvid = event.target.getAttribute('data-cv');
+let fileUrl='https://'+window.location.host+'/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId='+cvid;
+window.open(fileUrl);	
+}
+
+removeUploadedImg(event){
+console.log("removeUploadedImg----");
+let key = event.target.getAttribute('data-key');
+let doctype = event.target.getAttribute('data-doctype');
+console.log("doctype----"+doctype);
+console.log("key----"+key);
+deleteRecord(key)
+    .then(() => {								
+        console.log("success----");
+        
+            if(doctype==DigitalCopyOfLicenceCertification){
+            let index = event.target.getAttribute('data-index');
+            this.digiCopyOfCertification.splice(index,1);
+            if(this.digiCopyOfCertification.length<-0)
+                this.showCertificationDocs=false;
+        }
+        this.getAllDocumentsOfCertification();
+
+        if(this.editdatarec.Status!='Draft'){
+            console.log('If status is draft')
+            this.docUploadupdateStatus();
+            this.getAllDocumentsOfCertification();
+        }
+            
+        })
+    .catch(error => {
+        console.log("Error----"+JSON.stringify(error));
+        console.log("Error Only----"+error);
+    });
+    
+    
+}
+
+fileuploaded(event){
+const uploadedFiles = event.detail;
+console.log("uploaded file details----"+JSON.stringify(uploadedFiles));
+for(let i = 0; i < uploadedFiles.length; i++) {
+    this.digiCopyOfCertification=[];
+                    
+    if(uploadedFiles[i].doctype==DigitalCopyOfLicenceCertification){         
+        this.showdiplomaCopyDocs=true;
+        console.log('ABCD');
+        let digiCopyOfCertification={};
+        digiCopyOfCertification.name=uploadedFiles[i].Title+'.'+uploadedFiles[i].FileExtension;
+        digiCopyOfCertification.ContentDocumentId=uploadedFiles[i].ContentDocumentId;
+        digiCopyOfCertification.CententVersionId=uploadedFiles[i].Id;
+        digiCopyOfCertification.doctype=uploadedFiles[i].Document_Type_fileupload__c;
+        this.digiCopyOfCertification.push(digiCopyOfCertification);
+    }
+    
+    if(this.recId !=null){
+        console.log('Get All Documents Of Certification');
+        this.getAllDocumentsOfCertification();
+    }
+
+    console.log('this.digiCopyOfCertification data=>' + JSON.stringify(this.digiCopyOfCertification));
+} 
+if(uploadedFiles.length > 0 && this.editdatarec.Status!='Draft'){
+    this.docUploadupdateStatus();
+}  
+}
+
+async docUploadupdateStatus(){
+    const fields = {};
+        fields[ID_FIELD.fieldApiName] = this.recId;
+        fields[Status_FIELD.fieldApiName] = 'Draft';
+
+        fields[AdminReviewComment_FIELD.fieldApiName] = null;
+        fields[Timestamp_FIELD.fieldApiName] = null;
+
+        const recordInput = { fields };
+
+        await updateRecord(recordInput)
+            .then(() => {                    
+                
+            })
+            .catch(error => {
+                console.log('error=>' + error);
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error While Updating Status!',
+                        message: error.body.message,
+                        variant: 'error'
+                    })
+                );
+            });
+}
+
+}

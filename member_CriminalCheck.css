@@ -1,0 +1,29 @@
+.redColor{
+    /* fill :blue; */
+    color : white;
+    background-color: #392469;
+    cursor: pointer;
+}
+.iconContainer{
+    border: 1px solid black;
+    /* width : 40px;
+    height:40px; */
+    display:inline-block;
+}
+.box2{
+    border: 1px solid gray;
+}
+.headerclass{
+    font-weight: bold !important;
+    font-size: x-large !important; 
+}
+
+.slds-card__header{
+    padding-top: 0px !important;
+}
+
+.showDocName{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
